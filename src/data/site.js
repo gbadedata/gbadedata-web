@@ -10,7 +10,7 @@ export const site = {
     'I design data-intensive systems using Python, SQL, AWS, Azure, Terraform, Docker, Kubernetes and CI/CD. My work spans data engineering, cloud platform automation, applied machine learning and scientific computing, supported by research publications and open-source contributions.',
   availability:
     'Available for remote work worldwide. Open to Data Engineering, Cloud Engineering, Platform Engineering and Bioinformatics Engineering opportunities.',
-  email: 'o.odimayo@gbadedata.com',
+  email: 'hello@gbadedata.com',
   github: 'https://github.com/gbadedata',
   linkedin: 'https://www.linkedin.com/in/oluwagbade-odimayo-',
   researchgate: '',
