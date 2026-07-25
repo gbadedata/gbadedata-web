@@ -26,7 +26,7 @@ const { project: p } = Astro.props;
     <footer class="project__actions">
       {p.caseStudyUrl
         ? <a class:list={['btn', p.layout === 'feature' ? 'btn--primary' : 'btn--outline']} href={p.caseStudyUrl}>Read case study</a>
-        : <span class="btn btn--disabled" aria-disabled="true">Case study — in preparation</span>}
+        : <span class="btn btn--disabled" aria-disabled="true">Case study in preparation</span>}
       <a class="btn btn--outline" href={p.sourceUrl} target="_blank" rel="noopener noreferrer">View source code<span class="ext" aria-label="opens in a new tab"> ↗</span></a>
     </footer>
   </div>

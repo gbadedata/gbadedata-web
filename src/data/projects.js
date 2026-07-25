@@ -17,7 +17,7 @@ export const projects = [
     sourceUrl: 'https://github.com/gbadedata/aws-supplyshield-lakehouse',
   },
   {
-    number: '02', outcome: 'Lets a team ship often without betting the service on every release — a bad deployment rolls back in seconds rather than becoming an incident.', slug: 'enterprise-progressive-delivery-eks', layout: 'split-left',
+    number: '02', outcome: 'Lets a team ship often without betting the service on every release. A bad deployment rolls back in seconds rather than becoming an incident.', slug: 'enterprise-progressive-delivery-eks', layout: 'split-left',
     category: 'Cloud and Platform Engineering',
     title: 'Enterprise Progressive Delivery Platform',
     summary: 'A Kubernetes release platform that validates application health before promotion and supports controlled rollback when deployment conditions fail.',

@@ -6,7 +6,7 @@ const { type, lead = false } = Astro.props;
 
 const D = {
   supplyshield: {
-    caption: 'SupplyShield — incremental ingestion, contract enforcement, reconciliation and monitoring',
+    caption: 'SupplyShield: incremental ingestion, contract enforcement, reconciliation and monitoring',
     alt: 'Operational sources feed incremental ingestion into a raw S3 zone. Records then pass contract and schema validation before being modelled in PostgreSQL and reconciled source-to-target. Records failing validation are quarantined and alerted rather than silently dropped. Monitoring, structured logging and freshness checks run across the whole path.',
     rows: [
       ['Operational\nsources', 'Incremental\ningestion', 'Raw zone\nAmazon S3'],
@@ -16,7 +16,7 @@ const D = {
     band: 'monitoring · structured logging · freshness checks',
   },
   delivery: {
-    caption: 'Progressive delivery — canary evaluation with automated rollback on Amazon EKS',
+    caption: 'Progressive delivery: canary evaluation with automated rollback on Amazon EKS',
     alt: 'A push to main triggers CI, where Trivy and Checkov scan images and infrastructure. Terraform provisions AWS and Amazon EKS. Argo Rollouts releases a canary which is evaluated against health gates. A passing canary is promoted to stable; a failing one is rolled back automatically, and the degraded state is captured as evidence.',
     rows: [
       ['git push\nmain', 'CI scans\nTrivy · Checkov', 'Terraform\nAWS + EKS'],
@@ -26,7 +26,7 @@ const D = {
     band: 'kubernetes · nginx ingress · teardown and cost control',
   },
   ecm: {
-    caption: 'ECM target discovery — provenance-preserving evidence integration',
+    caption: 'ECM target discovery: provenance-preserving evidence integration',
     alt: 'Public biological databases are acquired into a Nextflow workflow running containerised tools. Data passes quality control, then evidence sources are integrated and candidates scored. Output is a reviewable report accompanied by a provenance manifest recording every input, version and transformation. A quality-control failure halts the run rather than producing partial results.',
     rows: [
       ['Public\ndatabases', 'Nextflow\ncontainerised', 'Quality\ncontrol'],
@@ -36,7 +36,7 @@ const D = {
     band: 'provenance manifest · conda · metadata capture · reproducible environments',
   },
   fraud: {
-    caption: 'Fraud scoring — leakage-aware features feeding a capacity-bounded review queue',
+    caption: 'Fraud scoring: leakage-aware features feeding a capacity-bounded review queue',
     alt: 'Transactions are converted into point-in-time correct features with explicit leakage checks. A calibrated model produces a probability, business rules are applied, and results enter a review queue bounded by real analyst capacity rather than a fixed threshold. Analyst outcomes feed drift monitoring.',
     rows: [
       ['Transaction\nstream', 'Point-in-time\nfeatures', 'Model +\ncalibration'],

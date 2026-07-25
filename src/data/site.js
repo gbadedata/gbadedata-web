@@ -46,10 +46,10 @@ export const contributions = [
       'Validated locally with nf-core lint and nf-test before submission',
     ],
     validation: [
-      'nf-core modules lint freebayes — 67 tests passed, 0 warnings, 0 failures',
-      'nf-test modules/nf-core/freebayes — 6 tests passed',
-      'GitHub CI — 36 successful checks',
-      'Maintainer review — approved and merged',
+      'nf-core modules lint freebayes: 67 tests passed, 0 warnings, 0 failures',
+      'nf-test modules/nf-core/freebayes: 6 tests passed',
+      'GitHub CI: 36 successful checks',
+      'Maintainer review: approved and merged',
     ],
     technology: ['Nextflow','nf-core','nf-test','FreeBayes','EDAM ontology','YAML','Bash','Conda','GitHub Actions'],
   },
@@ -122,7 +122,7 @@ export const projects = [
     status: 'Portfolio implementation',
     year: '2026',
     summary:
-      'Cloud-native releases through infrastructure as code, Kubernetes and progressive delivery. The platform provisions AWS infrastructure, deploys to Amazon EKS and evaluates release health before promotion. The case study documents unsuccessful deployment behaviour as well as successful — the degraded Argo Rollouts state is presented as engineering evidence rather than hidden.',
+      'Cloud-native releases through infrastructure as code, Kubernetes and progressive delivery. The platform provisions AWS infrastructure, deploys to Amazon EKS and evaluates release health before promotion. The case study documents unsuccessful deployment behaviour as well as successful. The degraded Argo Rollouts state is presented as engineering evidence rather than hidden.',
     focus: [
       'AWS infrastructure provisioning',
       'Amazon EKS',
@@ -148,7 +148,7 @@ export const projects = [
     status: 'Research and portfolio implementation',
     year: '2026',
     summary:
-      'Data and cloud engineering principles applied to biological research: integrating scientific datasets, preserving analytical provenance and producing reviewable evidence for candidate prioritisation. The workflow separates acquisition, processing, quality control, evidence integration, scoring, reporting and validation. It supports research prioritisation — it does not replace biological interpretation, experimental validation or clinical review.',
+      'Data and cloud engineering principles applied to biological research: integrating scientific datasets, preserving analytical provenance and producing reviewable evidence for candidate prioritisation. The workflow separates acquisition, processing, quality control, evidence integration, scoring, reporting and validation. It supports research prioritisation. It does not replace biological interpretation, experimental validation or clinical review.',
     focus: [
       'Scientific workflow orchestration',
       'Biological data integration',
@@ -172,7 +172,7 @@ export const projects = [
     status: 'Portfolio implementation',
     year: '2026',
     summary:
-      'Data engineering, machine learning, anomaly detection and business rules combined to produce reviewable fraud-risk outputs. The design focuses on the system around the model rather than presenting model training as the complete solution — point-in-time correctness, leakage prevention, calibration and capacity-aware prioritisation.',
+      'Data engineering, machine learning, anomaly detection and business rules combined to produce reviewable fraud-risk outputs. The design focuses on the system around the model rather than presenting model training as the complete solution: point-in-time correctness, leakage prevention, calibration and capacity-aware prioritisation.',
     focus: [
       'Data preparation and validation',
       'Point-in-time correctness',
