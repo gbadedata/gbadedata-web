@@ -1,0 +1,113 @@
+---
+import ArchDiagram from './ArchDiagram.astro';
+const { project: p } = Astro.props;
+---
+<article class:list={['project', `project--${p.layout}`]}>
+  <p class="project__number">{p.number}</p>
+
+  <div class="project__main">
+    <header class="project__header">
+      <p class="project__category">{p.category}</p>
+      <h3>{p.title}</h3>
+      <p class="project__outcome">{p.outcome}</p>
+      <p class="project__summary">{p.summary}</p>
+    </header>
+
+    <div class="project__body">
+      <div class="project__visual">
+        <ArchDiagram type={p.visual.diagram} />
+      </div>
+      <div class="project__description">
+        <p>{p.description}</p>
+        {p.scope && <p class="project__scope">{p.scope}</p>}
+      </div>
+    </div>
+
+    <footer class="project__actions">
+      {p.caseStudyUrl
+        ? <a class:list={['btn', p.layout === 'feature' ? 'btn--primary' : 'btn--outline']} href={p.caseStudyUrl}>Read case study</a>
+        : <span class="btn btn--disabled" aria-disabled="true">Case study — in preparation</span>}
+      <a class="btn btn--outline" href={p.sourceUrl} target="_blank" rel="noopener noreferrer">View source code<span class="ext" aria-label="opens in a new tab"> ↗</span></a>
+    </footer>
+  </div>
+
+  <aside class="project__details" aria-label={`Details for ${p.title}`}>
+    <section class="project__evidence">
+      <h4>Engineering evidence</h4>
+      <ul class="tick">{p.evidence.map(e => <li>{e}</li>)}</ul>
+    </section>
+    <section class="project__technology">
+      <h4>Technology</h4>
+      <ul class="tick">{p.technology.map(t => <li>{t}</li>)}</ul>
+    </section>
+    <section class="project__status">
+      <h4>Status</h4>
+      <p>{p.status}</p>
+    </section>
+  </aside>
+</article>
+
+<style>
+  /* Phase 10 — normal document flow, no absolute structure */
+  .project {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) minmax(12rem, 0.34fr);
+    column-gap: 2rem; row-gap: 1.5rem;
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .project--feature { border-top: 2px solid var(--text); padding-block: 5rem }
+  .project--compact { padding-block: 3.4rem }
+
+  /* inner rhythm — outer grid never changes */
+  .project--split-left .project__main,
+  .project--split-right .project__main { display: grid; grid-template-columns: 1fr; gap: 0 }
+  .project--split-left .project__body,
+  .project--split-right .project__body { display: grid; grid-template-columns: 1.05fr 1fr; gap: 2rem; align-items: start }
+  .project--split-right .project__body .project__visual { order: 2 }
+  .project--split-left .project__visual,
+  .project--split-right .project__visual { margin-block: 0 }
+  .project--compact .project__body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: start }
+  .project--compact .project__visual { margin-block: 0 }
+  .project__number { grid-column: 1; grid-row: 1 / -1; font-family: var(--font-mono); font-size: .95rem; color: var(--accent) }
+  .project__main { grid-column: 2; min-width: 0 }
+  .project__details { grid-column: 3; min-width: 0 }
+
+  .project__category { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .7rem }
+  .project__main h3 { font-family: var(--font-heading); font-size: 1.42rem; font-weight: 600; letter-spacing: -.02em; margin-bottom: .5rem }
+  .project--feature .project__main h3 { font-size: clamp(1.6rem, 2.6vw, 2.05rem) }
+  .project__outcome {
+    font-size: 1.12rem; line-height: 1.5; color: var(--text);
+    max-width: 56ch; margin-bottom: .7rem; font-weight: 500;
+  }
+  .project--feature .project__outcome { font-size: 1.2rem; max-width: 58ch }
+  .project__summary { font-size: .98rem; color: var(--muted); max-width: 60ch; line-height: 1.55 }
+  .project--feature .project__summary { font-size: 1.06rem; max-width: 62ch }
+
+  .project__visual { width: 100%; margin-block: 1.5rem }
+  .project__description p { font-size: var(--step-sum); line-height: 1.62; max-width: 62ch }
+  .project__scope { margin-top: 1rem; font-size: .98rem !important; color: var(--muted); border-left: 2px solid var(--accent); padding-left: .85rem }
+  .project__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.6rem }
+
+  .project__details h4 { font-family: var(--font-heading); font-size: .88rem; font-weight: 600; margin-bottom: .55rem }
+  .project__details section + section { margin-top: 1.5rem }
+  .project__status p { font-size: var(--step-side); color: var(--muted) }
+  .tick li { font-size: var(--step-side); color: var(--muted); padding-left: 1.25rem; position: relative; margin-bottom: .45rem; line-height: 1.5 }
+  .tick li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 7px; height: 7px; background: var(--accent-bright); border-radius: 1px;
+  }
+  .ext { font-size: .9em }
+
+  @media (max-width: 900px) {
+    .project--split-left .project__body,
+    .project--split-right .project__body,
+    .project--compact .project__body { grid-template-columns: 1fr; gap: 1.4rem }
+    .project--split-right .project__body .project__visual { order: 0 }
+  }
+  @media (max-width: 800px) {
+    .project { grid-template-columns: 2rem minmax(0, 1fr); padding: 3.2rem 0 }
+    .project__main, .project__details { grid-column: 2; grid-row: auto }
+    .project__number { grid-row: 1 }
+  }
+</style>

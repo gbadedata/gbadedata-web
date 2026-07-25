@@ -1,0 +1,62 @@
+---
+import { nav, site } from '../data/site.js';
+const path = Astro.url.pathname;
+---
+<header class="hdr">
+  <div class="shell hdr-in">
+    <a href="/" class="brand">
+      <img src="/logo.png" alt="" width="40" height="40" class="brand-mark" />
+      <span class="brand-text">
+        <span class="brand-name">{site.name}</span>
+        <span class="brand-role">Data and Cloud Engineer</span>
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <input type="checkbox" id="nt" class="nt" />
+      <label for="nt" class="burger" aria-label="Menu"><span></span><span></span></label>
+      <ul class="navlist">
+        {nav.map(i => {
+          const on = i.href !== '/' && path.startsWith(i.href);
+          return <li><a href={i.href} class={on ? 'on' : ''} aria-current={on ? 'page' : undefined}>{i.label}</a></li>;
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr { border-bottom: var(--rule); background: var(--background) }
+  .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 76px }
+  .brand { display: flex; align-items: center; gap: .75rem }
+  .brand-mark { width: 40px; height: 40px; border-radius: 50% }
+  .brand-text { display: flex; flex-direction: column; gap: .1rem; line-height: 1.25 }
+  .brand-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; letter-spacing: -.01em; color: var(--text) }
+  .brand-role { font-size: .84rem; color: var(--muted) }
+
+  .navlist { display: flex; gap: 1.5rem; align-items: center }
+  .navlist a {
+    font-family: var(--font-body); font-size: var(--step-nav); font-weight: 500;
+    color: #39416b; padding-block: .4rem;
+    border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+  }
+  .navlist a:hover { color: var(--text); border-bottom-color: var(--border-strong) }
+  .navlist a.on { color: var(--accent); border-bottom-color: var(--accent-bright) }
+
+  .nt, .burger { display: none }
+  .burger { flex-direction: column; gap: 6px; cursor: pointer; padding: 8px }
+  .burger span { display: block; width: 24px; height: 2px; background: var(--text) }
+
+  @media (max-width: 940px) {
+    .hdr-in { position: relative }
+    .burger { display: flex }
+    .navlist {
+      position: absolute; left: calc(var(--gutter) * -1); right: calc(var(--gutter) * -1); top: 100%;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--background); border-bottom: var(--rule);
+      max-height: 0; overflow: hidden; transition: max-height .3s ease; z-index: 40;
+    }
+    .nt:checked ~ .navlist { max-height: 560px }
+    .navlist li { border-top: var(--rule) }
+    .navlist a { display: block; padding: .95rem var(--gutter); font-size: .95rem; border-bottom: none }
+  }
+</style>

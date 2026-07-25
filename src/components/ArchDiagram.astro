@@ -1,0 +1,124 @@
+---
+/* Architecture diagrams — 16:9 charcoal panels (§10).
+   Drawn from each system's real design. No stock imagery.
+   Every diagram carries a text description for §50 accessibility. */
+const { type, lead = false } = Astro.props;
+
+const D = {
+  supplyshield: {
+    caption: 'SupplyShield — incremental ingestion, contract enforcement, reconciliation and monitoring',
+    alt: 'Operational sources feed incremental ingestion into a raw S3 zone. Records then pass contract and schema validation before being modelled in PostgreSQL and reconciled source-to-target. Records failing validation are quarantined and alerted rather than silently dropped. Monitoring, structured logging and freshness checks run across the whole path.',
+    rows: [
+      ['Operational\nsources', 'Incremental\ningestion', 'Raw zone\nAmazon S3'],
+      ['Contracts +\nschema checks', 'Modelled\nPostgreSQL', 'Source-to-target\nreconciliation'],
+    ],
+    branch: { row: 1, col: 0, label: 'Quarantine + alert' },
+    band: 'monitoring · structured logging · freshness checks',
+  },
+  delivery: {
+    caption: 'Progressive delivery — canary evaluation with automated rollback on Amazon EKS',
+    alt: 'A push to main triggers CI, where Trivy and Checkov scan images and infrastructure. Terraform provisions AWS and Amazon EKS. Argo Rollouts releases a canary which is evaluated against health gates. A passing canary is promoted to stable; a failing one is rolled back automatically, and the degraded state is captured as evidence.',
+    rows: [
+      ['git push\nmain', 'CI scans\nTrivy · Checkov', 'Terraform\nAWS + EKS'],
+      ['Argo Rollouts\ncanary', 'Health gate\nevaluation', 'Promote\nto stable'],
+    ],
+    branch: { row: 1, col: 1, label: 'Automated rollback' },
+    band: 'kubernetes · nginx ingress · teardown and cost control',
+  },
+  ecm: {
+    caption: 'ECM target discovery — provenance-preserving evidence integration',
+    alt: 'Public biological databases are acquired into a Nextflow workflow running containerised tools. Data passes quality control, then evidence sources are integrated and candidates scored. Output is a reviewable report accompanied by a provenance manifest recording every input, version and transformation. A quality-control failure halts the run rather than producing partial results.',
+    rows: [
+      ['Public\ndatabases', 'Nextflow\ncontainerised', 'Quality\ncontrol'],
+      ['Evidence\nintegration', 'Candidate\nscoring', 'Reviewable\nreport'],
+    ],
+    branch: { row: 0, col: 2, label: 'QC failure halts run' },
+    band: 'provenance manifest · conda · metadata capture · reproducible environments',
+  },
+  fraud: {
+    caption: 'Fraud scoring — leakage-aware features feeding a capacity-bounded review queue',
+    alt: 'Transactions are converted into point-in-time correct features with explicit leakage checks. A calibrated model produces a probability, business rules are applied, and results enter a review queue bounded by real analyst capacity rather than a fixed threshold. Analyst outcomes feed drift monitoring.',
+    rows: [
+      ['Transaction\nstream', 'Point-in-time\nfeatures', 'Model +\ncalibration'],
+      ['Business\nrules', 'Capacity-aware\nqueue', 'Analyst\nreview'],
+    ],
+    branch: { row: 0, col: 1, label: 'Leakage checks' },
+    band: 'drift monitoring · batch scoring · pytest · reproducible experiments',
+  },
+};
+
+const d = D[type];
+const BW = 236, BH = 86, GX = 62, X0 = 62;
+const ROW_Y = [104, 268];
+const cx = c => X0 + c * (BW + GX);
+const bx = cx(d.branch.col), by = ROW_Y[d.branch.row];
+---
+<figure class:list={['arch', lead && 'arch--lead']}>
+  <div class="arch-frame">
+    <svg viewBox="0 0 960 540" role="img" aria-label={d.alt} preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id={`a-${type}`} viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--panel-dim)" />
+        </marker>
+      </defs>
+
+      <text x="62" y="52" class="t-eyebrow">data flow</text>
+      <line x1="62" y1="66" x2="898" y2="66" class="rule" />
+
+      {d.rows.map((row, r) => row.map((label, c) => (
+        <g>
+          <rect x={cx(c)} y={ROW_Y[r]} width={BW} height={BH} rx="2" class="box" />
+          {label.split('\n').map((ln, k) => (
+            <text x={cx(c) + BW / 2} y={ROW_Y[r] + 36 + k * 26} class="t-box">{ln}</text>
+          ))}
+          {c < 2 && (
+            <line x1={cx(c) + BW} y1={ROW_Y[r] + BH / 2} x2={cx(c) + BW + GX - 8}
+                  y2={ROW_Y[r] + BH / 2} class="arrow" marker-end={`url(#a-${type})`} />
+          )}
+        </g>
+      )))}
+
+      {/* wrap connector: end of row 1 → start of row 2 */}
+      <path d={`M ${cx(2) + BW / 2} ${ROW_Y[0] + BH} V 196 H ${cx(0) + BW / 2} V ${ROW_Y[1] - 8}`}
+            class="arrow" fill="none" marker-end={`url(#a-${type})`} />
+
+      {/* control / failure branch */}
+      <path d={`M ${bx + BW / 2} ${by + BH} V 392`} class="arrow dashed" fill="none"
+            marker-end={`url(#a-${type})`} />
+      <rect x={bx + BW / 2 - 132} y="392" width="264" height="58" rx="2" class="box alt" />
+      <text x={bx + BW / 2} y="428" class="t-box alt">{d.branch.label}</text>
+
+      <line x1="62" y1="484" x2="898" y2="484" class="rule" />
+      <text x="62" y="510" class="t-eyebrow">{d.band}</text>
+    </svg>
+  </div>
+  <figcaption>{d.caption}</figcaption>
+</figure>
+
+<style>
+  .arch { margin: 0 0 1.6rem }
+  .arch-frame {
+    width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+    background: var(--panel); border-radius: var(--radius);
+  }
+  .arch-frame svg { width: 100%; height: 100%; display: block }
+  .box { fill: none; stroke: var(--panel-line); stroke-width: 1.6 }
+  .box.alt { stroke: var(--accent-bright); stroke-dasharray: 4 4 }
+  .t-box {
+    fill: var(--panel-text); font-family: var(--font-mono); font-size: 22px;
+    text-anchor: middle; letter-spacing: .01em;
+  }
+  .t-box.alt { fill: var(--accent-bright) }
+  .arrow { stroke: var(--panel-dim); stroke-width: 1.5 }
+  .arrow.dashed { stroke-dasharray: 4 4 }
+  .rule { stroke: var(--panel-line); stroke-width: 1 }
+  .t-eyebrow {
+    fill: var(--panel-dim); font-family: var(--font-mono); font-size: 19px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  figcaption {
+    font-family: var(--font-body); font-size: var(--step-side); color: var(--muted);
+    margin-top: .9rem; line-height: 1.5;
+  }
+</style>

@@ -1,0 +1,65 @@
+/* ============================================================
+   DESIGN TOKENS
+   Palette derived directly from the gbadedata logo:
+   navy #020659 · cyan #00D5FE · green #01FA04
+   Bright, high-contrast, cool. Accent reserved for links,
+   labels, active states and diagram highlights. No gradients.
+   ============================================================ */
+
+:root {
+  /* brand — sampled from the logo */
+  --navy:          #020659;
+  --cyan:          #00D5FE;
+  --green:         #01FA04;
+
+  /* surfaces */
+  --background:    #ffffff;
+  --surface:       #f4f7fd;
+  --surface-warm:  #f4f7fd;
+  --surface-alt:   #eaf1fb;
+  --surface-sunk:  #e3ecf8;
+
+  /* ink */
+  --text:          #020659;
+  --muted:         #4c5680;
+  --border:        #d3ddef;
+  --border-strong: #adbcd8;
+
+  /* accents — accessible variants for text, bright for graphics */
+  --accent:        #0072a6;   /* link text, ~5:1 on white */
+  --accent-dark:   #01558c;
+  --accent-bright: #00d5fe;   /* rules, markers, diagram strokes */
+  --good:          #00871a;   /* status text */
+  --good-bright:   #01fa04;
+
+  /* charcoal replaced by brand navy for technical panels */
+  --code-background: #020659;
+  --panel:           #020659;
+  --panel-line:      #2b3187;
+  --panel-text:      #eaeeff;
+  --panel-dim:       #8e97d4;
+
+  /* type */
+  --font-heading: 'Geist', 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --step-hero:  clamp(2rem, 4vw, 3.4rem);
+  --step-h2:    clamp(1.55rem, 2.5vw, 2.15rem);
+  --step-h3:    1.2rem;
+  --step-large: 1.15rem;
+  --step-body:  1.0625rem;   /* 17px */
+  --step-sum:   1.0625rem;   /* 17px summaries/descriptions */
+  --step-side:  0.9375rem;   /* 15px sidebars, research, oss */
+  --step-nav:   0.8125rem;   /* 13px */
+  --step-btn:   0.8125rem;   /* 13px */
+  --step-meta:  0.75rem;     /* 12px metadata only */
+
+  /* layout */
+  --shell:   1180px;
+  --reading: 760px;
+  --gutter:  24px;
+
+  --radius:  3px;
+  --rule:    1px solid var(--border);
+}

@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectArticle from '../components/ProjectArticle.astro';
+import { projects } from '../data/projects.js';
+import { site } from '../data/site.js';
+
+const capability = [
+  ['Data Engineering', 'Reliable ingestion, transformation, modelling, validation, reconciliation and monitoring.'],
+  ['Cloud and Platform Engineering', 'Infrastructure as code, containers, Kubernetes, CI/CD and deployment automation.'],
+  ['Bioinformatics and Scientific Workflows', 'Reproducible pipelines, provenance, data integration and research-software engineering.'],
+  ['Applied AI and Machine Learning', 'Leakage-aware modelling, calibration, anomaly detection and decision systems built around real operating constraints.'],
+];
+
+const principles = [
+  ['Reproducibility','Infrastructure, dependencies and processing steps should be defined in code.'],
+  ['Failure-aware design','Retries, idempotency, rollback and recovery must be designed before failure occurs.'],
+  ['Observability','Systems should expose enough information to identify what happened, where it happened and what data was affected.'],
+  ['Honest scope','Portfolio systems must not be described as enterprise production systems unless they have genuinely served users under operational responsibility.'],
+];
+
+const expertise = [
+  ['Data Engineering', ['Incremental ingestion','Data modelling','Data quality','Reconciliation','Orchestration','Observability']],
+  ['Cloud and Platform Engineering', ['AWS and Azure','Terraform','Docker','Kubernetes','CI/CD','Deployment validation']],
+  ['Bioinformatics and Scientific Computing', ['Workflow orchestration','Biological data integration','Provenance','Reproducible environments','Quality control','Research-software documentation']],
+  ['Applied AI and Machine Learning', ['Leakage prevention','Feature engineering','Classification','Calibration','Drift monitoring','Decision-system integration']],
+];
+
+const credentials = [
+  {
+    code: 'DP-700',
+    title: 'Microsoft Certified: Fabric Data Engineer Associate',
+    body: 'Data loading patterns, data architectures, orchestration, transformation, security, monitoring and optimisation in Microsoft Fabric.',
+    url: 'https://learn.microsoft.com/en-gb/users/oluwagbadeodimayo-8921/credentials/36ab7c802fb7da99',
+  },
+  {
+    code: 'DP-600',
+    title: 'Microsoft Certified: Fabric Analytics Engineer Associate',
+    body: 'Enterprise analytics solutions, lakehouses, warehouses, semantic models, data preparation, security and analytics lifecycle management in Microsoft Fabric.',
+    url: 'https://learn.microsoft.com/en-gb/users/OluwagbadeOdimayo-8921/credentials/ABE9871D1917291F',
+  },
+];
+
+const research = [
+  ['2025','Journal article','Exploration of Plant Alkaloids as Potential Inhibitors of HIV–CD4 Binding','Computational biology · Drug discovery'],
+  ['2025','Conference / preprint','Temporal-Spatial Attention Network for DoS Attack Detection','Machine learning · Cybersecurity'],
+  ['2024','Journal article','DNA Methylation in the Recovery of Maize from Maize Streak','Molecular genetics · Plant biology'],
+];
+
+const oss = [
+  { name: 'Meltano', ref: '3 merged PRs', body: 'Three merged contributions to the open-source DataOps and ELT platform: suppressed coloured output when stderr is not a TTY so redirected logs stay clean, added FORCE_COLOR support with NO_COLOR precedence and test coverage, and added --refresh-catalog to meltano invoke for Singer tap discovery.', status: 'Merged', tone: 'done', url: 'https://github.com/meltano/meltano/pulls?q=is%3Apr+author%3Agbadedata+is%3Amerged', areas: 'Python · CLI design · logging · Singer catalogue handling · tests · documentation' },
+  { name: 'nf-core/modules', ref: 'PR #12018', body: 'Fixed the FreeBayes module. Three nf-test cases ran on human data but were labelled sarscov2, so they were renamed and their snapshot keys updated. Added the missing EDAM ontology entries for BAM, CRAM, SAM, BED and FASTA inputs, and corrected stub gzip syntax required by nf-core linting.', status: 'Merged', tone: 'done', url: 'https://github.com/nf-core/modules/pull/12018', areas: 'Nextflow · nf-core · nf-test · EDAM ontology · YAML · CI' },
+  { name: 'Pydantic Settings', body: 'Developed regression tests for nested environment-variable aliases, validation aliases and alias choices, with pinned environments and failure analysis.', status: 'Local validation', tone: 'local', url: 'https://github.com/pydantic/pydantic-settings', areas: 'Python · Pydantic · pytest · environment management' },
+  { name: 'AEGIS', body: 'Replaced inaccurate installation instructions with a reproducible local setup for an AI-governance application.', status: 'Awaiting maintainer action', tone: 'wait', url: 'https://github.com/gbadedata/AEGIS', areas: 'Technical documentation · reproducibility · Streamlit' },
+];
+
+const platforms = [
+  ['dev.to', 'https://dev.to/gbadedata', '@gbadedata'],
+  ['Medium', 'https://medium.com/@gbadedata', '@gbadedata'],
+  ['Hashnode', 'https://hashnode.com/@gbade-oj', '@gbade-oj'],
+];
+
+const writing = [
+  ['Building an Incremental Supply-Chain Lakehouse on AWS', 'Planned'],
+  ['What I Learned from an Argo Rollouts Failure', 'Planned'],
+  ['Applying Data Engineering Principles to Bioinformatics Workflows', 'Planned'],
+];
+---
+<BaseLayout>
+
+  <section class="hero">
+    <div class="shell">
+      <p class="label">Data and Cloud Engineer</p>
+      <h1>I build reliable data platforms, cloud infrastructure and reproducible workflows for operational and scientific data.</h1>
+      <p class="hero-lead">
+        I use Python, SQL and cloud-native infrastructure to build testable, observable
+        and reproducible systems for operational and scientific data.
+      </p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#work">View selected work</a>
+        <span class="btn btn--disabled" aria-disabled="true">Résumé — available on request</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="shell">
+      <ul class="strip-grid">
+        {capability.map(([t,b]) => <li><h2>{t}</h2><p>{b}</p></li>)}
+      </ul>
+      <p class="strip-note">Supported by research publications, open-source contributions and technical writing.</p>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="shell">
+      <div class="section-head">
+        <span class="label">Selected engineering work</span>
+        <h2>Systems designed to be tested, operated and understood</h2>
+        <p class="lead">A focused selection of data, cloud and scientific-computing systems with documented architecture, validation, limitations and operational evidence.</p>
+      </div>
+
+      {projects.map(p => <ProjectArticle project={p} />)}
+    </div>
+  </section>
+
+  <section class="section band" id="principles">
+    <div class="shell">
+      <div class="section-head"><span class="label">How I build</span><h2>Principles that shape my work</h2></div>
+      <ul class="quad">{principles.map(([h,b]) => <li><h3>{h}</h3><p>{b}</p></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section" id="expertise">
+    <div class="shell">
+      <div class="section-head"><span class="label">Expertise</span><h2>Engineering expertise</h2></div>
+      <ul class="quad">
+        {expertise.map(([t,caps]) => (
+          <li><h3>{t}</h3><ul class="tick">{caps.map(c => <li>{c}</li>)}</ul></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section credentials" id="credentials">
+    <div class="shell">
+      <div class="section-head">
+        <span class="label">Microsoft credentials</span>
+        <h2>Certified across Microsoft Fabric data engineering and analytics</h2>
+        <p class="lead">Role-based credentials covering the engineering and analytics layers of Microsoft Fabric.</p>
+      </div>
+      <ul class="credential-grid">
+        {credentials.map(c => (
+          <li>
+            <div class="credential-top">
+              <p class="credential-code">{c.code}</p>
+              <p class="credential-issuer">Microsoft Certified</p>
+            </div>
+            <h3>{c.title}</h3>
+            <p class="credential-body">{c.body}</p>
+            <a class="link credential-link" href={c.url} target="_blank" rel="noopener noreferrer">Verify on Microsoft Learn ↗</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band" id="research">
+    <div class="shell">
+      <div class="section-head"><span class="label">Selected research</span><h2>Research that strengthens my engineering practice</h2></div>
+      <ul class="pubs">
+        {research.map(([yr,type,title,area]) => (
+          <li>
+            <p class="pub-meta">{yr} · {type}</p>
+            <h3>{title}</h3>
+            <p class="pub-area">{area}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="open-source">
+    <div class="shell">
+      <div class="section-head">
+        <span class="label">Open-source engineering</span>
+        <h2>Contributing to systems other people maintain</h2>
+        <p class="lead">Understanding an existing architecture, following maintainer direction, reproducing defects, writing focused tests and accepting review. Code merged upstream into <strong>Meltano</strong> and <strong>nf-core/modules</strong>.</p>
+      </div>
+      <ul class="quad">
+        {oss.map(o => (
+          <li>
+            <h3><a class="link" href={o.url} target="_blank" rel="noopener noreferrer">{o.name} ↗</a></h3>
+            {o.ref && <p class="oss-ref">{o.ref}</p>}
+            <p>{o.body}</p>
+            <p class="oss-areas">{o.areas}</p>
+            <p class:list={['status', `status--${o.tone}`]}>{o.status}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band" id="writing">
+    <div class="shell">
+      <div class="section-head"><span class="label">Selected writing</span><h2>Explaining how systems are built, tested and improved</h2></div>
+      <ul class="articles">{writing.map(([t, state]) => <li><span class="art">{t}</span><span class="status status--plan">{state}</span></li>)}</ul>
+      <div class="platforms">
+        <p class="platforms-h">I publish on</p>
+        <ul>
+          {platforms.map(([name, url, handle]) => (
+            <li><a class="link" href={url} target="_blank" rel="noopener noreferrer">{name} ↗</a><span class="handle">{handle}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="shell">
+      <div class="section-head"><span class="label">About</span><h2>Building dependable systems for data-intensive work</h2></div>
+      <p class="about-p">My background combines applied data science, cloud engineering and life sciences. I build dependable systems for operational and scientific data, with particular strength in data platforms, infrastructure automation, bioinformatics workflows and reproducible computation.</p>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="shell">
+      <span class="label">Contact</span>
+      <h2>Open to data, cloud and scientific computing opportunities</h2>
+      <p class="lead contact-lead">Data engineering, cloud platforms, platform engineering and bioinformatics workflow roles.</p>
+      <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+      <ul class="contact-links">
+        <li><a class="link" href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="link" href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero { padding-block: clamp(3.5rem,7vw,5.5rem) clamp(4rem,7vw,6rem); border-bottom: var(--rule) }
+  .hero .label { display: block; margin-bottom: 1.3rem }
+  .hero h1 { max-width: 26ch; margin-bottom: 1.6rem }
+  .hero-lead { font-size: 1.14rem; line-height: 1.55; color: #2c3560; max-width: 58ch; margin-bottom: 2.3rem }
+
+  .strip { border-bottom: var(--rule); background: var(--surface-warm); padding-block: 2.3rem 1.9rem }
+  .strip-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem }
+  .strip-grid h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem }
+  .strip-grid p { font-size: 1.02rem; color: #39416b; line-height: 1.55 }
+  .strip-note { margin-top: 2.2rem; padding-top: 1.3rem; border-top: var(--rule); font-size: 1rem; color: var(--muted) }
+
+  /* §21 — every project an independent article in normal flow */
+  .project {
+    display: grid;
+    grid-template-columns: 3rem minmax(0,1.3fr) minmax(16rem,0.7fr);
+    gap: 2rem; padding: 4rem 0; border-top: 1px solid var(--border);
+  }
+  .project--lead { border-top: 2px solid var(--text) }
+  .project__number { grid-column: 1; font-family: var(--font-mono); font-size: .95rem; color: var(--accent) }
+  .project__main { grid-column: 2; min-width: 0 }
+  .project__details { grid-column: 3; min-width: 0 }
+  .project__cat { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .7rem }
+  .project__main h3 { font-family: var(--font-heading); font-size: 1.7rem; font-weight: 600; letter-spacing: -.02em; margin-bottom: .5rem }
+  .project--lead .project__main h3 { font-size: clamp(1.9rem,3.2vw,2.5rem) }
+  .project__sub { font-size: 1.12rem; color: var(--muted); margin-bottom: 1.5rem; max-width: 52ch }
+  .project--lead .project__sub { font-size: 1.22rem }
+  .project__visual { margin-bottom: 1.4rem }
+  .project__body { font-size: var(--step-sum); line-height: 1.55; max-width: 60ch; margin-bottom: 1.3rem }
+  .project__scope { font-size: .98rem; color: var(--muted); border-left: 2px solid var(--accent); padding-left: .85rem; margin-bottom: 1.5rem; max-width: 58ch }
+  .project__status { font-size: .95rem; color: var(--muted) }
+  .col-h { font-family: var(--font-heading); font-size: .85rem; font-weight: 600; margin-bottom: .55rem }
+  .col-h.sp { margin-top: 1.5rem }
+  .tick li { font-size: var(--step-side); color: var(--muted); padding-left: 1.25rem; position: relative; margin-bottom: .45rem; line-height: 1.5 }
+  .tick li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 7px; height: 7px; background: var(--accent-bright); border-radius: 1px;
+  }
+  .more { margin-top: 2.4rem }
+  .more a { font-size: .96rem }
+
+  .band { background: var(--surface-warm) }
+  .quad { display: grid; grid-template-columns: repeat(2,1fr); gap: 2.5rem 3rem }
+  .quad > li { border-top: var(--rule); padding-top: 1.3rem; min-width: 0 }
+  .quad h3 { font-size: 1.1rem; margin-bottom: .75rem }
+  .quad > li > p { font-size: var(--step-side); color: var(--muted); line-height: 1.6 }
+  .status {
+    display: inline-block; margin-top: 1rem;
+    font-family: var(--font-mono); font-size: var(--step-meta);
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .3rem .6rem; border-radius: var(--radius); border: 1px solid;
+  }
+  .status--done { color: var(--good); border-color: var(--good); background: #f0fdf2 }
+  .status--open { color: var(--accent); border-color: var(--accent); background: #eff9fe }
+  .status--local { color: var(--muted); border-color: var(--border-strong) }
+  .status--wait { color: #8a5a00; border-color: #d9b168; background: #fdf7ea }
+  .status--plan { color: var(--muted); border-color: var(--border-strong); margin-top: 0 }
+
+  .credentials { background: var(--surface) }
+  .credential-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem }
+  .credential-grid > li { border-top: 2px solid var(--text); padding-top: 1.5rem; min-width: 0 }
+  .credential-code { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .12em; color: var(--accent); margin-bottom: .8rem }
+  .credential-grid h3 { font-size: 1.35rem; margin-bottom: .8rem }
+  .credential-grid > li > p:not(.credential-code) { font-size: var(--step-side); color: var(--muted); line-height: 1.6; max-width: 56ch }
+  .credential-link { display: inline-block; margin-top: 1.2rem; font-size: var(--step-side) }
+
+  .pubs { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem }
+  .pubs > li { border-top: 2px solid var(--border); padding-top: 1.5rem; min-width: 0 }
+  .pub-meta { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+  .pubs h3 { font-size: 1.14rem; margin: .9rem 0 .9rem; line-height: 1.3 }
+  .pub-area { font-size: var(--step-side); color: var(--muted) }
+
+  .articles > li { border-top: var(--rule) }
+    .articles > li:last-child { border-bottom: var(--rule) }
+  .articles > li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-block: 1.15rem; flex-wrap: wrap }
+  .art { font-family: var(--font-heading); font-size: 1.06rem; font-weight: 500; letter-spacing: -.01em }
+  
+  .articles a { display: block; padding-block: 1.15rem; font-family: var(--font-heading); font-size: 1.14rem; font-weight: 500; letter-spacing: -.01em; transition: color .2s }
+  .articles a:hover { color: var(--accent) }
+
+  .about-p { font-size: 1.08rem; line-height: 1.65; max-width: 68ch }
+
+  .contact { background: var(--surface) }
+  .contact .label { display: block; margin-bottom: 1.1rem }
+  .contact h2 { max-width: 22ch; margin-bottom: 1.2rem }
+  .contact-lead { max-width: 58ch; margin-bottom: 2rem }
+  .mail { display: inline-block; font-family: var(--font-mono); font-size: clamp(1rem,2vw,1.3rem); color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: .3rem }
+  .mail:hover { color: var(--accent-dark); border-color: var(--accent-dark) }
+  .contact-links { display: flex; gap: 1.6rem; margin-top: 2rem; flex-wrap: wrap }
+  .contact-links a { font-size: 1rem }
+
+  @media (max-width: 1000px) {
+    .project { grid-template-columns: 3rem minmax(0,1fr); gap: 1.6rem }
+    .project__main, .project__details { grid-column: 2 }
+    .project__details { margin-top: .5rem }
+  }
+  @media (max-width: 900px) {
+    .strip-grid { grid-template-columns: repeat(2,1fr); gap: 1.8rem }
+    .quad { grid-template-columns: 1fr; gap: 2rem }
+    .pubs { grid-template-columns: 1fr; gap: 1.8rem }
+    .credential-grid { grid-template-columns: 1fr }
+  }
+  @media (max-width: 800px) {
+    .project { grid-template-columns: 2rem minmax(0,1fr) }
+  }
+
+  /* ── credentials ── */
+  .credential-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem }
+  .credential-grid > li {
+    background: var(--surface); border: var(--rule);
+    border-top: 3px solid var(--accent-bright);
+    border-radius: var(--radius); padding: 1.8rem 1.7rem 1.6rem; min-width: 0;
+  }
+  .credential-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap }
+  .credential-code { font-family: var(--font-mono); font-size: 1.35rem; font-weight: 500; color: var(--accent); letter-spacing: -.01em }
+  .credential-issuer { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+  .credential-grid h3 { font-size: 1.05rem; margin-bottom: .7rem; line-height: 1.35 }
+  .credential-body { font-size: var(--step-side); color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem }
+  .credential-link { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .06em }
+
+  /* ── open-source contribution areas ── */
+  .oss-ref { font-family: var(--font-mono); font-size: var(--step-meta); color: var(--accent); margin-top: .3rem }
+  .oss-areas { font-family: var(--font-mono); font-size: var(--step-meta); color: var(--muted); line-height: 1.6; margin-top: .8rem }
+
+  @media (max-width: 760px) { .credential-grid { grid-template-columns: 1fr } }
+
+  /* ── writing platforms ── */
+  .platforms { margin-top: 2.2rem; padding-top: 1.4rem; border-top: var(--rule) }
+  .platforms-h { font-family: var(--font-mono); font-size: var(--step-meta); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .9rem }
+  .platforms ul { display: flex; flex-wrap: wrap; gap: 2rem }
+  .platforms li { display: flex; flex-direction: column; gap: .15rem }
+  .platforms a { font-size: 1rem }
+  .handle { font-family: var(--font-mono); font-size: var(--step-meta); color: var(--muted) }
+</style>
